@@ -9,10 +9,12 @@ Kafka 기반 OCR 모델 서빙 시스템을 실제로 설계·운영하며 정�
 
 # 🎯 학습 목적
 
+```
 - 분산 환경에서 데이터 정합성을 어떻게 유지할 것인가?
 - 이벤트 기반 구조에서 중복·재시도·장애 상황을 어떻게 제어할 것인가?
 - AI 모델 서빙 서버의 성능과 안정성을 동시에 설계할 수 있는가?
 - 장애 예측·대응·복구까지 포함한 신뢰성 중심 아키텍처를 설계할 수 있는가?
+```
 
 ---
 
@@ -33,12 +35,14 @@ Level 6 : 아키텍처 설계 판단 능력
 
 ## 🟡 1. 데이터 정합성 전략
 
+```
 - Strong Consistency vs Eventual Consistency
 - Idempotency Key 설계
 - Retry 전략
 - 상태 전이 안전 설계 (State Transition Safety)
 - Conditional Update (CAS)
 - Optimistic / Pessimistic Lock
+```
 
 **목표:**  
 중복 실행, 중복 저장, 상태 꼬임 방지
@@ -47,12 +51,14 @@ Level 6 : 아키텍처 설계 판단 능력
 
 ## 🔵 2. Kafka 기반 Event Driven Architecture
 
+```
 - Kafka Message Semantics
 - At Least Once vs Exactly Once
 - Offset Commit 전략
 - Consumer Group & Partition 구조
 - DLQ & Retry 패턴
 - Async Writer 구조 설계
+```
 
 **목표:**  
 이벤트 기반 구조에서 안전한 메시지 처리 흐름 설계
@@ -61,6 +67,7 @@ Level 6 : 아키텍처 설계 판단 능력
 
 ## 🟣 3. Reliability Engineering (SRE 관점)
 
+```
 - Alert 설계
 - Composite Alarm 전략
 - Kafka Lag 기반 장애 예측
@@ -68,6 +75,7 @@ Level 6 : 아키텍처 설계 판단 능력
 - Auto Recovery 설계
 - Failover 전략
 - Runbook 작성
+```
 
 **목표:**  
 장애가 발생해도 무너지지 않는 시스템 설계
@@ -75,7 +83,7 @@ Level 6 : 아키텍처 설계 판단 능력
 ---
 
 ## 🔴 4. AI Model Serving 안정화 전략
-
+```
 - GPU 직렬화 (Concurrency Control)
 - Micro-batching 전략
 - Shape Bucket 정렬
@@ -83,7 +91,7 @@ Level 6 : 아키텍처 설계 판단 능력
 - Worker 수 vs GPU 수 관계
 - 모델 Warmup 전략
 - 메모리 관리 전략
-
+```
 **목표:**  
 성능과 안정성을 동시에 확보하는 AI 서빙 구조 설계
 
@@ -100,23 +108,18 @@ WHERE job_id=? AND status='REQUESTED';
 ```
 
 중복 실행 방지
-
 상태 꼬임 방지
 
 멱등성 확보
 
 📈 현재 학습 초점
-
+```
 분산 환경에서의 상태 전이 안전성
-
 Kafka 기반 메시지 처리 안정성
-
 Strong vs Idempotency 적용 판단
-
 장애 예측 및 자동 대응 전략
-
 AI 모델 서빙 병목 구조 분석
-
+```
 🏁 최종 지향점
 
 AI Model Serving Architect
