@@ -107,10 +107,7 @@ SET status='RUNNING'
 WHERE job_id=? AND status='REQUESTED';
 ```
 
-중복 실행 방지
-상태 꼬임 방지
-
-멱등성 확보
+영향받은 행이 1개일 때만 작업 획득에 성공한 것으로 처리합니다. 이 조건부 갱신만으로 장애 후 복구와 결과 저장의 멱등성까지 보장되지는 않으므로 lease·attempt token·결과 유일성 제약을 함께 설계합니다.
 
 📈 현재 학습 초점
 ```
@@ -133,3 +130,25 @@ Reliability 중심 설계 엔지니어
 이 문서는 단순한 기술 요약이 아니라,
 구조를 설계할 수 있는 엔지니어가 되기 위한 학습 기록입니다.
 
+폴더별 깃 커밋
+
+docs: add 99_architecture_decisions
+docs: add 04_ai_model_serving
+docs: add 03_reliability_engineering
+docs: add 02_messaging_eda
+docs: add 01_data_consistency
+docs: add roadmap.md
+
+## 문서 읽는 순서와 범위
+
+아래 문서의 OCR 구조, 수치, SQL은 학습용 설계 예시입니다. 이 저장소에서 실제 구현이나 운영 성능을 검증했다는 의미는 아닙니다. SQL은 PostgreSQL과 named parameter 표기를 가정하며 그대로 실행하는 migration은 아닙니다. ADR은 검증 전 제안으로 기록합니다.
+
+| 단계 | 문서 |
+|---|---|
+| 1. 정합성 | [Strong vs Eventual](01_data_consistency/strong-vs-eventual.md) · [멱등성](01_data_consistency/idempotency.md) · [상태 전이](01_data_consistency/state-transition-safety.md) · [OCR 적용](01_data_consistency/applied-to-ocr.md) |
+| 2. 메시징 | [Kafka 의미론](02_messaging_eda/kafka-semantics.md) · [Offset](02_messaging_eda/offset-commit-strategy.md) · [Retry/DLQ](02_messaging_eda/dlq-retry-pattern.md) · [OCR 적용](02_messaging_eda/applied-to-ocr.md) |
+| 3. 신뢰성 | [알람](03_reliability_engineering/alert-design.md) · [복합 알람](03_reliability_engineering/composite-alarm.md) · [복구](03_reliability_engineering/recovery-strategy.md) · [OCR 적용](03_reliability_engineering/applied-to-ocr.md) |
+| 4. 모델 서빙 | [GPU 직렬화](04_ai_model_serving/gpu-serialization.md) · [Micro-batching](04_ai_model_serving/micro-batching.md) · [Worker/GPU](04_ai_model_serving/worker-gpu-scaling.md) · [성능 비교](04_ai_model_serving/performance-tradeoff.md) |
+| 5. 설계 판단 | [정합성 ADR](99_architecture_decisions/strong-vs-idempotent-decision.md) · [Async Writer ADR](99_architecture_decisions/async-writer-decision.md) · [Scaling ADR](99_architecture_decisions/scaling-strategy.md) |
+
+[실습과 완료 기준은 roadmap.md](roadmap.md)에서 확인합니다. 먼저 동기 결과 저장 경로를 이해한 뒤 Async Writer 확장안을 읽는 순서를 권장합니다.
